@@ -1,6 +1,6 @@
 import InputError from "../errors/InputError";
 import UserRepository from "../repositories/userRepository";
-import jwt, { JsonWebTokenError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 interface User {
   username: string,
@@ -44,14 +44,6 @@ class UserServices {
     } catch (err) {
       throw new InputError('Invalid token');
     }
-/*     return new Promise(async (resolve, reject) => {
-      try {
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string);
-        return resolve(decodedToken);
-      } catch(err) {
-        return reject(new InputError('Invalid token'));
-      }
-    }); */
   }
 }
 

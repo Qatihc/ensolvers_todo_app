@@ -26,7 +26,6 @@ User.init({
   sequelize
 })
 
-
 User.sync({ alter: true });
 
 export default User;
