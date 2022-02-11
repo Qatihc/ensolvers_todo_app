@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize/types");
-const { sequelize } = require("./dbInstance");
+import { DataTypes } from "sequelize";
+import { sequelize } from "./dbInstance";
 
 const Todo = sequelize.define('Todo', {
   id: {
@@ -20,4 +20,4 @@ const Todo = sequelize.define('Todo', {
 
 Todo.sync({ alter: true });
 
-module.exports = Todo;
+export default Todo;

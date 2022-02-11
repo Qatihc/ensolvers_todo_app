@@ -1,7 +1,7 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 require('dotenv').config();
 
-exports.sequelize = new Sequelize(process.env.DB_URI, {
+export const sequelize = new Sequelize(process.env.DB_URI as string, {
   dialect: "postgres",
   dialectOptions: {
     ssl: {
