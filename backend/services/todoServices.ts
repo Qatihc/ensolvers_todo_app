@@ -25,6 +25,15 @@ class TodoServices {
     const todos = await this.Todo.getAllTodosByUserId(userId);
     return todos;
   }
+
+  deleteTodoById = async ({ todoId, userId }:{ todoId: string, userId: string }) => {
+    await this.Todo.deleteTodoById(todoId);
+  }
+
+  updateTodoContentById = async ({ todoId, userId, content }:{ todoId: string, userId: string, content: string }) => {
+    /* Chequear si el todo pertenece al usuario */
+    await this.Todo.updateTodoContentById({ id: todoId, content });
+  }
 }
 
 export default TodoServices;

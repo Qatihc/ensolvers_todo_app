@@ -8,9 +8,9 @@ const todoServices = new TodoServices(todoRepository);
 export default class TodoController {
   static create = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id } = res.locals.user;
+      const { id: userId } = res.locals.user;
       const { content } = req.body;
-      await todoServices.create({ content, userId: id as string});
+      await todoServices.create({ content, userId });
       return res.send();
     } catch (err) {
       return next(err);
@@ -37,4 +37,27 @@ export default class TodoController {
       return next(err);
     }
   }
+
+  static deleteTodoById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = res.locals.user;
+      const { id } = req.body;
+      await todoServices.deleteTodoById({ todoId: id, userId });
+      return res.send();
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  static updateTodoContentById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = res.locals.user;
+      const { id, content } = req.body;
+      await todoServices.updateTodoContentById({ todoId: id, userId, content });
+      return res.send();
+    } catch (err) {
+      return next(err);
+    }
+  }
+
 }
