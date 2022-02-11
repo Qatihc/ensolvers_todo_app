@@ -25,4 +25,14 @@ export default class UserController {
       return next(err);
     }
   }
+
+  static requireAuth = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { token } = req.headers;
+      res.locals.user = await userServices.decodeUserToken(token as string);
+      return next();
+    } catch (err) {
+      return next(err);
+    }
+  }
 }

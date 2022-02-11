@@ -14,6 +14,7 @@ app.use('/api', express.static('public/logos'));
 
 /* Si no entro a ninguna ruta, va al manejo de errores. */
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  console.log('maneoj')
   if (err instanceof InputError) {
     res.status(400).send({ err: err.message });
   }
