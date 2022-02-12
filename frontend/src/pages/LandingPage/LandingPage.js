@@ -1,8 +1,10 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { PageContainer, FormContainer } from "./StyledComponents";
 
-const LandingPage = () => {
+const LandingPage = ({ currentUserToken }) => {
+  // Si el usuario ya esta logueado lo redirijo a todo.
+  if (currentUserToken) return (<Navigate to="/todo" />)
   return (
     <PageContainer>
       <FormContainer>

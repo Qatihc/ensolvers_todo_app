@@ -1,5 +1,5 @@
 import axios from "axios";
-import persistUser from "../utils/persistUser";
+import PersistToken from "./PersistToken";
 
 /* Como no puedo acceder a las variables de entorno desde el frontend, 
 asigno el valor de esta variable desde webpack al momento de buildear la app. */
@@ -10,14 +10,14 @@ const axiosInstance = axios.create({
 });
 
 /* Agrego el token como header de todas las request salientes. */
-/* axiosInstance.interceptors.request.use((config) => {
-  const token = persistUser.getCurrentUser().token; 
+axiosInstance.interceptors.request.use((config) => {
+  const token = PersistToken.getPersistedToken(); 
   if (token) {
     config.headers["token"] = token;
   }
   
   return config;
-}); */
+});
 
 /* Axios por defecto reemplaza los mensajes de error que envio desde el server, con esta funcion evito eso */
 axiosInstance.interceptors.response.use((response) => response, (error) => {
