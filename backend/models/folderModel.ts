@@ -1,41 +1,30 @@
 import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
 import { sequelize } from "./dbInstance";
-import User from "./userModel";
 
-class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
+class Folder extends Model<InferAttributes<Folder>, InferCreationAttributes<Folder>> {
   declare id: CreationOptional<string>;
-  declare content: string;
-  declare isDone: CreationOptional<boolean>;
+  declare name: string;
   declare userId: string;
-  declare folderId: string;
 }
 
-Todo.init({
+Folder.init({
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
-  content: {
+  name: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  isDone: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
   userId: {
     type: DataTypes.UUID,
-  },
-  folderId: {
-    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4
   }
 }, {
   sequelize
 });
 
+Folder.sync({ alter: true });
 
-Todo.sync({ alter: true });
-
-export default Todo;
+export default Folder;

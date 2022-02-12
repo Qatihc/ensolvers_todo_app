@@ -9,9 +9,9 @@ export default class TodoController {
   static create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id: userId } = res.locals.user;
-      const { content } = req.body;
-      await todoServices.create({ content, userId });
-      return res.send();
+      const { content, folderId } = req.body;
+      const todo = await todoServices.create({ content, userId, folderId });
+      return res.send(todo);
     } catch (err) {
       return next(err);
     }

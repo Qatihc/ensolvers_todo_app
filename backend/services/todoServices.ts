@@ -2,7 +2,8 @@ import TodoRepository from "../repositories/todoRepository";
 
 interface Todo {
   content: string,
-  userId: string
+  userId: string,
+  folderId: string,
 }
 
 class TodoServices {
@@ -12,7 +13,8 @@ class TodoServices {
   }
 
   create = async (todo: Todo) => {
-    const response = await this.Todo.create(todo);
+    const createdTodo = await this.Todo.create(todo);
+    return createdTodo;
   }
 
   toggleDoneById = async (ids: { todoId: string, userId: string }) => {

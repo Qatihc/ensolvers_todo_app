@@ -1,8 +1,8 @@
 import { literal } from "sequelize";
-import Todo from "../models/todoModel";
+import { Todo } from "../models";
 
 class TodoRepository {
-  create = async (todo: { userId: string, content: string }) => {
+  create = async (todo: { userId: string, content: string, folderId: string }) => {
     const response = await Todo.create(todo);
     const { id, isDone, content } = response;
     return { id, isDone, content };
@@ -11,9 +11,14 @@ class TodoRepository {
   getAllTodosByUserId = async (userId: string) => {
     const response = await Todo.findAll({
       where: { userId },
+      order: [['createdAt', 'DESC']],
       raw: true 
     });
     return response;
+  }
+
+  getTodosByFolder = async (folderId: string) => {
+    
   }
 
   toggleDoneById = async (id: string) => {
