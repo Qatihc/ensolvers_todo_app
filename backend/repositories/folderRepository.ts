@@ -7,7 +7,6 @@ class FolderRepository {
       
       raw: true
     })
-
     return response;
   }
 
@@ -17,7 +16,7 @@ class FolderRepository {
   }
 
   deleteFolderById = async (id: string) => {
-    await Folder.destroy({ where: { id }});
+    await Folder.destroy({ where: { id } });
   }
 }
 

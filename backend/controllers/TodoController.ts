@@ -27,6 +27,17 @@ export default class TodoController {
     }
   }
 
+  static getTodosByFolder = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id: userId } = res.locals.user;
+      const { folderId } = req.params;
+      const todos = await todoServices.getTodosByFolderId({ userId, folderId });
+      res.send(todos);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
   static toggleTodoById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userId } = res.locals.user;

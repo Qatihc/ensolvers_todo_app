@@ -28,6 +28,12 @@ class TodoServices {
     return todos;
   }
 
+  getTodosByFolderId = async ({ folderId, userId }:{ folderId: string, userId: string }) => {
+    /* CHEQUEAR SI LA CARPETEA ES DEL USUARIO */
+    const response = await this.Todo.getTodosByFolder(folderId);
+    return response;
+  }
+
   deleteTodoById = async ({ todoId, userId }:{ todoId: string, userId: string }) => {
     await this.Todo.deleteTodoById(todoId);
   }

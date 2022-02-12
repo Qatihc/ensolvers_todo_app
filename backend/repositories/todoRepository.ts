@@ -18,7 +18,12 @@ class TodoRepository {
   }
 
   getTodosByFolder = async (folderId: string) => {
-    
+    const response = await Todo.findAll({
+      where: { folderId },
+      order: [['createdAt', 'DESC']],
+      raw: true 
+    });
+    return response;
   }
 
   toggleDoneById = async (id: string) => {

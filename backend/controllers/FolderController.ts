@@ -32,7 +32,7 @@ export default class FolderController {
       const { id } = req.body;
       const { id: userId } = res.locals.user;
       folderServices.deleteFolderById({ id, userId });
-      return next();
+      res.send();
     } catch (err) {
       return next(err);
     }

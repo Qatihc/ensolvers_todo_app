@@ -27,9 +27,18 @@ Todo.init({
   },
   userId: {
     type: DataTypes.UUID,
+    references: {
+      model: 'Users',
+      key: 'id'
+    }
   },
   folderId: {
     type: DataTypes.UUID,
+    references: {
+      model: 'Folders',
+      key: 'id'
+    },
+    onDelete: 'CASCADE'
   }
 }, {
   sequelize

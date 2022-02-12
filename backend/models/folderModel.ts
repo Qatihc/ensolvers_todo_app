@@ -19,7 +19,11 @@ Folder.init({
   },
   userId: {
     type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4
+    references: {
+      model: 'Users',
+      key: 'id'
+    },
+    onDelete: 'CASCADE'
   }
 }, {
   sequelize
