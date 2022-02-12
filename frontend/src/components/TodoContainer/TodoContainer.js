@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TodoServices from '../../services/TodoServices';
-import AddTodoForm from '../AddTodoForm/AddTodoForm';
+import AddTodoForm from '../CreateTodoForm/CreateTodoForm';
 import TodoList from '../TodoList/TodoList';
 
 const TodoContainer = () => {
@@ -18,8 +18,8 @@ const TodoContainer = () => {
   return (
     <>
       {isLoading && 'PLACEHOLDER PARA SPINNER'}
-      <AddTodoForm addTodo={todoServices.addTodo}/>
-      <TodoList todos={todos} updateTodo={''} deleteTodo={todoServices.deleteTodoById} />
+      <AddTodoForm createTodo={todoServices.createTodo}/>
+      <TodoList todos={todos} updateTodo={''} deleteTodoById={todoServices.deleteTodoById} />
     </>
   )
 }

@@ -1,13 +1,18 @@
 import React from 'react';
 import TodoItem from '../TodoItem/TodoItem';
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, deleteTodoById, updateTodoContentById }) => {
   return (
     <main>
       <ul>
         {todos.map((todo) => {
-          const {id, content, isDone, createdAt } = todo;
-          return <TodoItem id={id} content={content} isDone={isDone} createdAt={createdAt}/>
+          return (
+            <TodoItem 
+              key={todo.id}
+              todo={todo}
+              deleteTodoById={deleteTodoById}
+              updateTodoContentById={updateTodoContentById}
+            />)
         })}
       </ul>
     </main>

@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 
-const TodoItem = ({ id, content, isDone, createdAt }) => {
+const TodoItem = ({ todo, deleteTodoById, updateTodoContentById }) => {
+  const { id, content, isDone, createdAt } = todo;
+
+  const handleClick = () => {
+    deleteTodoById(id);
+  }
+
   return (
-    <li key={id}>{content}</li>
+    <li onClick={handleClick}>{content}</li>
   )
 }
 
