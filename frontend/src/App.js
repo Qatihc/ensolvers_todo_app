@@ -4,10 +4,11 @@ import LoginForm from './components/AuthForms/LoginForm';
 import RegisterForm from './components/AuthForms/RegisterForm';
 import GlobalStyle from './globalStyles';
 import LandingPage from './pages/LandingPage/LandingPage';
+import PersistToken from './services/PersistToken';
 import UserServices from './services/UserServices';
 
 const App = () => {
-  const [currentUserToken, setCurrentUserToken] = useState(null);
+  const [currentUserToken, setCurrentUserToken] = useState(PersistToken.getPersistedToken());
   const userServices = new UserServices(setCurrentUserToken);
   console.log(currentUserToken);
   return (
