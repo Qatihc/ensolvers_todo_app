@@ -8,6 +8,7 @@ const Input = ({
   value,
   error,
   forceDisplayError,
+  displayErrorOnBlur,
   className
 }) => {
   const [displayError, setDisplayError] = useState(false);
@@ -22,7 +23,7 @@ const Input = ({
   }, [error])
 
   const handleBlur = () => {
-    if (error) setDisplayError(true);
+    if (error && displayErrorOnBlur) setDisplayError(true);
   }
   
   return (

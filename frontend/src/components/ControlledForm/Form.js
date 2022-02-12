@@ -2,31 +2,34 @@ import React, { useState, useEffect } from 'react'
 import useForm from '../../hooks/useForm'
 import useFormValidator from '../../hooks/useFormValidator'
 import { childrenByType, firstChildByType } from '../../utils/selectChildrenByType'
-
 import Input from './Input'
 import SubmitButton from './SubmitButton'
 
 
-const Form = ({ children, formValidator, onSubmit, className }) => {
-  const [disableSubmit, setDisableSubmit] = useState(false);
+const Form = ({ children, onSubmit, className, formValidator, displayErrorOnBlur }) => {
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
 
   const inputChildren = childrenByType(children, Input);
   const submitButtonChild = firstChildByType(children, SubmitButton);
   const inputNames = inputChildren.map((child) => child.props.name)
   
   const { formValues, resetValues, handleInputChange } = useForm(inputNames);
-  /* Asumo que form validator no va a cambiar durante la ejecucion, y uso el hook condicionalmente ya que siempre ira a la misma rama. */
+
+  // Normalmente no se deberian usar hooks de forma condicional ya que genera problemas con la forma en la que react
+  // detecta cual es y donde esta cada hook. Pero como formValidator no forma parte del estado o las props de ningun components,
+  // estoy asumiendo que no va a modificarse y por ende el operador terciario siempre va a devolver la misma rama.
+
   const formErrors = formValidator ? useFormValidator(formValues, formValidator) : {};
   const isError = Object.values(formErrors).some(value => value);
 
   useEffect(() => {
-    if (!disableSubmit) return;
-    setDisableSubmit(isError)
+    if (!isSubmitDisabled) return;
+    setIsSubmitDisabled(isError)
   }, [formErrors])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isError) return setDisableSubmit(true);
+    if (isError) return setIsSubmitDisabled(true);
     return onSubmit(formValues, resetValues);
   }
 
@@ -38,14 +41,15 @@ const Form = ({ children, formValidator, onSubmit, className }) => {
       onChange: handleInputChange,
       value,
       error,
-      forceDisplayError: disableSubmit
+      displayErrorOnBlur: displayErrorOnBlur,
+      forceDisplayError: isSubmitDisabled
     })
   }
 
   const transformSubmitButtonChild = (child) => {
     return React.cloneElement(child, {
       handleSubmit,
-      disabled: disableSubmit
+      disabled: isSubmitDisabled
     })
   }
 

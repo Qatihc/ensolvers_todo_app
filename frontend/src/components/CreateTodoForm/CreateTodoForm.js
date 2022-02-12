@@ -3,9 +3,9 @@ import Form from '../ControlledForm/Form';
 import Input from '../ControlledForm/Input';
 import SubmitButton from '../ControlledForm/SubmitButton';
 
-const formValidator = {
+const createTodoFormValidator = {
   content: ({ content }) => {
-    if (!content.length) return 'No puede estar vacio'
+    if (!content.trim().length) return 'No puede estar vacio'
   }
 }
 
@@ -17,7 +17,7 @@ const CreateTodoForm = ({ createTodo }) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} formValidator={formValidator}>
+    <Form onSubmit={handleSubmit} formValidator={createTodoFormValidator}>
       <Input name="content" label="Contenido"></Input>
       <SubmitButton>Crear!</SubmitButton>
     </Form>

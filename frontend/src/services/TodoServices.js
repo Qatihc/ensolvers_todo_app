@@ -46,4 +46,12 @@ export default class TodoServices {
     this.replaceLocalTodoById(id, todoToUpdate);
     await axios.put('/todo', { data: { content: newContent } });
   }
+
+  toggleTodoById = async ({ id }) => {
+    console.log(this.todos, id)
+    const todoToUpdate = this.todos.find((todo) => todo.id === id);
+    todoToUpdate.isDone = !todoToUpdate.isDone;
+    this.replaceLocalTodoById(id, todoToUpdate);
+    await axios.patch('/todo/toggle', { id });
+  }
 }

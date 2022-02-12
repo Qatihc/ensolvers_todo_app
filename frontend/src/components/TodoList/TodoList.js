@@ -1,10 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
 import TodoItem from '../TodoItem/TodoItem';
 
-const TodoList = ({ todos, deleteTodoById, updateTodoContentById }) => {
+const TodoList = ({ todos, deleteTodoById, updateTodoContentById, toggleTodoById, className }) => {
   return (
     <main>
-      <ul>
+      <ul className={className}>
         {todos.map((todo) => {
           return (
             <TodoItem 
@@ -12,6 +13,7 @@ const TodoList = ({ todos, deleteTodoById, updateTodoContentById }) => {
               todo={todo}
               deleteTodoById={deleteTodoById}
               updateTodoContentById={updateTodoContentById}
+              toggleTodoById={toggleTodoById}
             />)
         })}
       </ul>
@@ -19,4 +21,9 @@ const TodoList = ({ todos, deleteTodoById, updateTodoContentById }) => {
   )
 }
 
-export default TodoList;
+export default styled(TodoList)`
+  border: 2px solid red;
+  height: 80vh;
+  width: min(90vw, var(--size-18));
+  overflow-y: auto;
+`;

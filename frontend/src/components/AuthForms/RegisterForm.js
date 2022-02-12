@@ -18,7 +18,7 @@ const RegisterForm = ({ register }) => {
       <FormTitle>Crea tu usuario.</FormTitle>
       <FormSubtitle>Ya tenes una cuenta? <Link to="/login">Logueate</Link></FormSubtitle>
       <FormError>{requestError}</FormError>
-      <StyledForm onSubmit={handleSubmit} >
+      <StyledForm onSubmit={handleSubmit} displayErrorOnBlur={true}>
         <StyledInput name="username" label="Username" />
         <StyledInput name="password" label="Password" type="password" />
         <StyledInput name="confirmPassword" type="password" label="Confirm password" />

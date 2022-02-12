@@ -18,7 +18,7 @@ const LoginForm = ({ login }) => {
       <FormTitle>Ingresa a tu cuenta.</FormTitle>
       <FormSubtitle>No tenes un usuario? <Link to="/register">Registrate</Link></FormSubtitle>
       <FormError>{requestError}</FormError>
-      <StyledForm onSubmit={handleSubmit} >
+      <StyledForm onSubmit={handleSubmit} displayErrorOnBlur={true}>
         <StyledInput name="username" label="Username" />
         <StyledInput name="password" label="Password" type="password" />
         <StyledSubmitButton >Log in</StyledSubmitButton>
