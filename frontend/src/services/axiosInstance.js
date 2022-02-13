@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
   baseURL: `${URL}api`,
 });
 
-/* Agrego el token como header de todas las request salientes. */
+/* Agrego el token de usuario como header de todas las request salientes. */
 axiosInstance.interceptors.request.use((config) => {
   const token = PersistToken.getPersistedToken(); 
   if (token) {
@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-/* Axios por defecto reemplaza los mensajes de error que envio desde el server, con esta funcion evito eso */
+/* Axios por defecto reemplaza los mensajes de error que envio desde el server, con este middleware evito eso */
 axiosInstance.interceptors.response.use((response) => response, (error) => {
   const { err: msg } = error.response.data;
   throw new Error(msg);

@@ -1,13 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import CreateFolderForm from '../CreateElementForms/CreateFolderForm';
 import FolderItem from '../FolderItem/FolderItem';
 import { TodoFormContainer } from '../TodoAppContainer/StyledComponents';
-
-const FolderLink = styled.a`
-  font-size: var(--size-5);
-`
 
 const FolderSelector = ({ folders, folderServices, className }) => {
   const { createFolder, deleteFolderById } = folderServices;
@@ -38,5 +33,4 @@ const FolderSelector = ({ folders, folderServices, className }) => {
   )
 }
 
-export default styled(FolderSelector)`
-`;
+export default FolderSelector;

@@ -13,7 +13,7 @@ const EditTodoForm = ({ todo, cancelTodoUpdate, confirmTodoUpdate }) => {
       <form onSubmit={(e) => e.preventDefault()}>
         <input value={content} onChange={handleChange} />
         <button onClick={() => confirmTodoUpdate({ content })}>Aceptar</button>
-        <button onClick={cancelTodoUpdate}>Cancelar</button>
+        <button onClick={() => cancelTodoUpdate()}>Cancelar</button>
       </form>
     </div>
   )

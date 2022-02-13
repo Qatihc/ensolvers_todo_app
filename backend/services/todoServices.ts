@@ -6,9 +6,9 @@ interface Todo {
   folderId: string,
 }
 
-// En la mayoria de los servicios que modifican o eliminan todos falta comprobar si el todo
+// En la mayoria de los servicios que modifican o eliminan un objeto falta comprobar si el todo
 // que estamos modificando pertenece o no al usuario, y si no lo hiciera devolver un error.
-// Asi como esta implementado ahora un usuario puede modificar los todos de otro usuario sin problema.
+// Asi como esta implementado ahora un usuario puede modificar los objetos de otro usuario sin problema.
 
 class TodoServices {
   Todo: TodoRepository;
