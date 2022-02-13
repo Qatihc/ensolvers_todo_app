@@ -43,7 +43,6 @@ Todo.init({
   sequelize
 });
 
-
 Todo.sync({ alter: true });
 
 export default Todo;
