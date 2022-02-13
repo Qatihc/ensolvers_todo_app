@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction} from "express";
+import path from "path";
 import InputError from "./errors/InputError";
 import ApiRouter from "./routes";
 require('dotenv').config();
@@ -7,10 +8,16 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', ApiRouter);
-app.use('/api', express.static('public/logos'));
+
+app.use(express.static(path.join(__dirname, "../frontend", "build")));
+
+app.get(['/', '/login', '/register', '/todo/*'], (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
+});
+
 
 /* Si no entro a ninguna ruta, va al manejo de errores. */
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
