@@ -7,6 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FolderSelector from '../FolderSelector/FolderSelector';
 import CreateFolderForm from '../CreateFolderForm/CreateFolderForm';
 import CreateTodoForm from '../CreateTodoForm/CreateTodoForm';
+import { ListContainer } from './StyledComponents';
+import { LoadingSpinner } from '../../LoadingSpinner';
 
 const TodoContainer = ({ className }) => {
   const [todos, setTodos] = useState([]);
@@ -56,9 +58,9 @@ const TodoContainer = ({ className }) => {
           />
         }
       </div>
-      <main>
-        {isLoading && 'PLACEHOLDER PARA SPINNER'}
-        {isFolderSelected ? 
+      <ListContainer>
+        {isLoading && <LoadingSpinner/>}
+        {isFolderSelected ?
           <TodoList 
             todos={filteredTodos}
             todoServices={todoServices}
@@ -68,7 +70,7 @@ const TodoContainer = ({ className }) => {
             deleteFolderById={folderServices.deleteFolderById}
           />
         }
-      </main>
+      </ListContainer>
     </div>
   )
 }

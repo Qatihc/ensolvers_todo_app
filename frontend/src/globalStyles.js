@@ -5,6 +5,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    list-style: none;
   }
 
   :root {
@@ -54,5 +55,5 @@ const GlobalStyle = createGlobalStyle`
     --size-18: 48rem;
   }
 `;
- 
+
 export default GlobalStyle;

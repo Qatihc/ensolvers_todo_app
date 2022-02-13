@@ -24,8 +24,5 @@ const TodoList = ({ todos, todoServices, className }) => {
 }
 
 export default styled(TodoList)`
-  border: 2px solid red;
-  height: 80vh;
-  width: min(90vw, var(--size-18));
-  overflow-y: auto;
+
 `;

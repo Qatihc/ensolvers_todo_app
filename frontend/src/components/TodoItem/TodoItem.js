@@ -4,7 +4,6 @@ import { BsTrashFill, BsPencilSquare } from 'react-icons/bs';
 
 const TodoContainer = styled.div`
   display: flex;
-  padding: 0 2rem;
   font-size: var(--size-4);
   justify-content: space-between;
   align-items: center;
