@@ -1,4 +1,4 @@
-import User from "../models/userModel";
+import { User } from "../models";
 
 class UserRepository {
   create = async (user: { username: string, password: string }) => {

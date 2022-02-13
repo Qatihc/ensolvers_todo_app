@@ -2,8 +2,13 @@ import TodoRepository from "../repositories/todoRepository";
 
 interface Todo {
   content: string,
-  userId: string
+  userId: string,
+  folderId: string,
 }
+
+// En la mayoria de los servicios que modifican o eliminan todos falta comprobar si el todo
+// que estamos modificando pertenece o no al usuario, y si no lo hiciera devolver un error.
+// Asi como esta implementado ahora un usuario puede modificar los todos de otro usuario sin problema.
 
 class TodoServices {
   Todo: TodoRepository;
@@ -12,12 +17,12 @@ class TodoServices {
   }
 
   create = async (todo: Todo) => {
-    const response = await this.Todo.create(todo);
+    const createdTodo = await this.Todo.create(todo);
+    return createdTodo;
   }
 
   toggleDoneById = async (ids: { todoId: string, userId: string }) => {
     const { todoId, userId } = ids;
-    /* Check if todo belongs to userId */
     await this.Todo.toggleDoneById(todoId);
   }
 
@@ -26,12 +31,16 @@ class TodoServices {
     return todos;
   }
 
+  getTodosByFolderId = async ({ folderId, userId }:{ folderId: string, userId: string }) => {
+    const response = await this.Todo.getTodosByFolder(folderId);
+    return response;
+  }
+
   deleteTodoById = async ({ todoId, userId }:{ todoId: string, userId: string }) => {
     await this.Todo.deleteTodoById(todoId);
   }
 
   updateTodoContentById = async ({ todoId, userId, content }:{ todoId: string, userId: string, content: string }) => {
-    /* Chequear si el todo pertenece al usuario */
     await this.Todo.updateTodoContentById({ id: todoId, content });
   }
 }

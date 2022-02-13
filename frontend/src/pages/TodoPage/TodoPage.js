@@ -1,12 +1,14 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TodoContainer from "../../components/TodoContainer/TodoContainer";
 
 const PageLayout = styled.div`
   display: grid;
-  max-height: 100vh;
+  min-height: 100vh;
   grid-template-columns: 1fr 1fr 5fr 1fr 1fr;
+  grid-template-rows: min-content 1fr;
+  background-color: var(--clr-orange-1);
 `
 
 const PageHeader = styled.header`
@@ -17,8 +19,9 @@ const PageHeader = styled.header`
 `
 
 const TodoPage = ({ currentUserToken, logout }) => {
+  const navigate = useNavigate();
   // Si el usuario no esta logueado lo redirijo a login.
-  if (!currentUserToken) return (<Navigate to="/login" />)
+  if (!currentUserToken) navigate("/login");
 
   return (
     <PageLayout>

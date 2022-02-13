@@ -9,9 +9,9 @@ export default class TodoController {
   static create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id: userId } = res.locals.user;
-      const { content } = req.body;
-      await todoServices.create({ content, userId });
-      return res.send();
+      const { content, folderId } = req.body;
+      const todo = await todoServices.create({ content, userId, folderId });
+      return res.send(todo);
     } catch (err) {
       return next(err);
     }
@@ -22,6 +22,17 @@ export default class TodoController {
       const { id } = res.locals.user;
       const todos = await todoServices.getAllTodosByUserId(id);
       res.send(todos)
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  static getTodosByFolder = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id: userId } = res.locals.user;
+      const { folderId } = req.params;
+      const todos = await todoServices.getTodosByFolderId({ userId, folderId });
+      res.send(todos);
     } catch (err) {
       return next(err);
     }

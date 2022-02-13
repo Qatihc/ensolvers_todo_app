@@ -1,26 +1,68 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BsTrashFill, BsPencilSquare } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
-const TodoContainer = styled.div`
+const TodoItemContainer = styled.div`
   display: flex;
-  padding: 0 2rem;
+  flex-direction: column;
   font-size: var(--size-4);
   justify-content: space-between;
+  align-items: flex-start;
+  margin-top: var(--size-4);
+  @media (min-width: 600px) {
+    flex-direction: row;
+    align-items: center;
+  }
 `
 
 const TodoActions = styled.div`
   display: flex;
   gap: 2rem;
-  font-size: 1.5rem;
+  margin: 0 var(--size-6);
+
+  @media (min-width: 600px) {
+    margin: 0;
+  }
+
+  & button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  & svg {
+    ${({ isDone }) => isDone ? 'color: var(--clr-gray-4);' : 'color: var(--clr-gray-7);'}
+    font-size: 1.5rem;
+  }
 `
 
 const TodoText = styled.div`
-  ${({ isDone }) => isDone ? 'color: gray' : ''}
+  display: flex;
+  max-width: 100%;
+  word-break: break-all;
+  margin-top: var(--size-2);
+
+  @media (min-width: 600px) {
+    max-width: 70%;
+  }
+
+  input {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  p {
+    margin-left: 1rem;
+    display: inline-block;
+    cursor: pointer;
+   ${({ isDone }) => isDone ? 'color: var(--clr-gray-5)' : ''}
+  }
 `
 
-const TodoItem = ({ todo, deleteTodoById, toggleTodoById, startContentUpdateById }) => {
+const TodoItem = ({ todo, deleteTodoById, selectTodoToUpdate, toggleTodoById }) => {
   const { id, content, isDone } = todo;
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     await deleteTodoById({ id });
@@ -30,19 +72,26 @@ const TodoItem = ({ todo, deleteTodoById, toggleTodoById, startContentUpdateById
     await toggleTodoById({ id });
   }
 
-  const handleStartContentUpdate = async (content) => {
-    await updateTodoContentById({ id, content });
+  const handleEdit = async () => {
+    selectTodoToUpdate({ id });
   }
 
   return (
     <li>
-      <TodoContainer>
-        <TodoText onClick={handleToggle} isDone={isDone}>{content}</TodoText>
-        <TodoActions>
-          <BsTrashFill onClick={handleDelete}/>
-          <BsPencilSquare onClick={handleStartContentUpdate}/>
+      <TodoItemContainer>
+        <TodoText isDone={isDone}>
+          <input type='checkbox' checked={isDone} onChange={handleToggle}/>
+          <p onClick={handleToggle}>{content}</p>
+        </TodoText>
+        <TodoActions isDone={isDone}>
+          <button onClick={handleDelete}>
+            <BsTrashFill/>
+          </button>
+          <button onClick={handleEdit}>
+            <BsPencilSquare />
+          </button>
         </TodoActions>
-      </TodoContainer>
+      </TodoItemContainer>
     </li>
   )
 }
