@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -17,8 +17,11 @@ const FormContainer = styled.div`
 
 const LandingPage = ({ currentUserToken }) => {
   const navigate = useNavigate();
-  // Si el usuario ya esta logueado lo redirijo a todo.
-  if (currentUserToken) navigate("/folder");
+
+  // Si el usuario ya esta logueado lo redirijo al selector de carpetas.
+  useEffect(() => {
+    if (currentUserToken) navigate("/folder");
+  }, [])
 
   return (
     <PageLayout>

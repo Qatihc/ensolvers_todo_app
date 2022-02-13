@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormContainer, StyledForm, StyledInput, StyledSubmitButton, FormTitle, FormSubtitle, FormError } from "./StyledComponents";
 import { SmallLoadingSpinner } from '../../LoadingSpinner';
 
 const LoginForm = ({ login }) => {
   const [requestError, setRequestError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (formValues) => {
     try {
       setIsLoading(true);
       await login(formValues);
+      navigate('/folder')
     } catch (err) {
       setRequestError(err.message);
     } finally {

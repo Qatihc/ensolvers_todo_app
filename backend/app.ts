@@ -14,7 +14,7 @@ app.use('/api', ApiRouter);
 
 app.use(express.static(path.join(__dirname, "../frontend", "build")));
 
-app.get(['/', '/login', '/register', '/folder/*'], (req, res) => {
+app.get(['/', '/login', '/register', '/folder', '/folder/*'], (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
 });
 

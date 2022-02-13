@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TodoContainer from "../../components/TodoContainer/TodoContainer";
@@ -20,14 +20,22 @@ const PageHeader = styled.header`
 
 const TodoPage = ({ currentUserToken, logout }) => {
   const navigate = useNavigate();
+
   // Si el usuario no esta logueado lo redirijo a login.
-  if (!currentUserToken) navigate("/login");
+  useEffect(() => {
+    if (!currentUserToken) navigate("/login");
+  }, []);
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <PageLayout>
       <PageHeader>
         <h2>To do App</h2>
-        <button onClick={logout}>Log out</button>
+        <button onClick={handleLogout}>Log out</button>
       </PageHeader>
       <TodoContainer />
     </PageLayout>
