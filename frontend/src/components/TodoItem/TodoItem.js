@@ -12,14 +12,34 @@ const TodoContainer = styled.div`
 const TodoActions = styled.div`
   display: flex;
   gap: 2rem;
-  font-size: 1.5rem;
+
+  & button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  & svg {
+    ${({ isDone }) => isDone ? 'color: var(--clr-gray-4);' : 'color: var(--clr-gray-7);'}
+    font-size: 1.5rem;
+  }
 `
 
 const TodoText = styled.div`
   max-width: 70%;
   word-break: break-all;
-  cursor: pointer;
-  ${({ isDone }) => isDone ? 'color: gray' : ''}
+  margin-top: var(--size-2);
+  input {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  p {
+    margin-left: 1rem;
+    display: inline-block;
+    cursor: pointer;
+   ${({ isDone }) => isDone ? 'color: var(--clr-gray-5)' : ''}
+  }
 `
 
 const TodoItem = ({ todo, deleteTodoById, toggleTodoById, startContentUpdateById }) => {
@@ -33,20 +53,24 @@ const TodoItem = ({ todo, deleteTodoById, toggleTodoById, startContentUpdateById
     await toggleTodoById({ id });
   }
 
-  const handleStartContentUpdate = async (content) => {
-    await updateTodoContentById({ id, content });
+  const handleStartContentUpdate = async () => {
+    startContentUpdateById(id);
   }
 
   return (
     <li>
       <TodoContainer>
-        <TodoText onClick={handleToggle} isDone={isDone}>
-          <input type='checkbox' checked={isDone} readOnly/>
-          {content}
+        <TodoText isDone={isDone}>
+          <input type='checkbox' checked={isDone} onChange={handleToggle}/>
+          <p onClick={handleToggle}>{content}</p>
         </TodoText>
-        <TodoActions>
-          <BsTrashFill onClick={handleDelete}/>
-          <BsPencilSquare onClick={handleStartContentUpdate}/>
+        <TodoActions isDone={isDone}>
+          <button onClick={handleDelete}>
+            <BsTrashFill/>
+          </button>
+          <button onClick={handleStartContentUpdate}>
+            <BsPencilSquare />
+          </button>
         </TodoActions>
       </TodoContainer>
     </li>

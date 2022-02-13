@@ -27,7 +27,7 @@ const Input = ({
   }
   
   return (
-    <div>
+    <div className='inputContainer'>
       <input
         className={`${className} ${(displayError) ? 'error' : ''}`}
         name={name}

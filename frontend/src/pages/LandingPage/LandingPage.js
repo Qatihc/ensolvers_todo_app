@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const PageLayout = styled.div`
   min-height: 100vh;
   display: flex;
+  background-color: #ffbc57;
   align-items: center;
   justify-content: center;
 `

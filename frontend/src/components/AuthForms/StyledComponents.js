@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const FormContainer = styled.div`
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  background-color: var(--clr-gray-2);
+  background-color: var(--clr-gray-1);
   border-radius: 10px;
   padding-top: 2rem;
 `
@@ -48,12 +48,12 @@ const StyledSubmitButton = styled(SubmitButton)`
   padding: 1rem;
   font-size: 1.2rem;
   border-radius: 0 0 10px 10px;
-  background-color: var(--clr-accent-9);
+  background-color: var(--clr-green-2);
   cursor: pointer;
   transition: all ease-in-out .2s;
 
   &:hover, &:focus {
-    background-color: var(--clr-accent-7);
+    background-color:var(--clr-green-1);
   }
   &:disabled {
     background-color: var(--clr-gray-7);

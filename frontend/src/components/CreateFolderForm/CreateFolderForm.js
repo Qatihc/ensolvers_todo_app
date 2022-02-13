@@ -2,6 +2,12 @@ import React from 'react';
 import Form from '../ControlledForm/Form';
 import Input from '../ControlledForm/Input';
 import SubmitButton from '../ControlledForm/SubmitButton';
+import styled from 'styled-components';
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: row;
+`
 
 const createFolderFormValidator = {
   name: ({ name }) => {
@@ -17,10 +23,10 @@ const CreateFolderForm = ({ createFolder }) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} formValidator={createFolderFormValidator}>
-      <Input name="name" label="Work"></Input>
+    <StyledForm onSubmit={handleSubmit} formValidator={createFolderFormValidator}>
+      <Input name="name" label="Nombre de la carpeta"></Input>
       <SubmitButton>Crear carpeta</SubmitButton>
-    </Form>
+    </StyledForm>
   )
 }
 

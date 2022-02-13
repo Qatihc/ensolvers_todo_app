@@ -5,8 +5,10 @@ import TodoContainer from "../../components/TodoContainer/TodoContainer";
 
 const PageLayout = styled.div`
   display: grid;
-  max-height: 100vh;
+  min-height: 100vh;
   grid-template-columns: 1fr 1fr 5fr 1fr 1fr;
+  grid-template-rows: min-content 1fr;
+  background-color: var(--clr-orange-1);
 `
 
 const PageHeader = styled.header`

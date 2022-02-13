@@ -7,13 +7,29 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FolderSelector from '../FolderSelector/FolderSelector';
 import CreateFolderForm from '../CreateFolderForm/CreateFolderForm';
 import CreateTodoForm from '../CreateTodoForm/CreateTodoForm';
-import { ListContainer } from './StyledComponents';
 import { LoadingSpinner } from '../../LoadingSpinner';
+
+const ListContainer = styled.main`
+  position: relative;
+  padding: var(--size-6);
+  height: 70vh;
+  width: min(90vw, var(--size-17));
+  overflow-y: auto;
+`
+
+const TodoFormContainer = styled.div`
+  padding: 0 var(--size-6);
+`
+
+const CurrentFolderNav = styled.nav`
+  padding: var(--size-6);
+`
 
 const TodoContainer = ({ className }) => {
   const [todos, setTodos] = useState([]);
   const [folders, setFolders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const { folderId } = useParams();
 
@@ -31,23 +47,23 @@ const TodoContainer = ({ className }) => {
     setIsLoading(false);
   }, []);
 
-  const navigateToFolderSelector = () => {
+  const navigateToFolderIndex = () => {
     navigate('/folder');
   }
 
   const isFolderSelected = !!folderId;
   const currentFolderName = folders.find((folder) => folder.id === folderId)?.name;
-  const filteredTodos = todos.filter((todo) => todo.folderId === folderId);
+  const currentFolderTodos = todos.filter((todo) => todo.folderId === folderId);
   
   return (
     <div className={className}>
-      <nav>
+      <CurrentFolderNav>
         <h1>
-          <a onClick={navigateToFolderSelector}>Folders</a>
+          <a onClick={navigateToFolderIndex}>Carpetas</a>
           {isFolderSelected && <span>{' > ' + currentFolderName}</span>}
         </h1>
-      </nav>
-      <div>
+      </CurrentFolderNav>
+      <TodoFormContainer>
         {isFolderSelected ? 
           <CreateTodoForm 
             createTodo={todoServices.createTodo}
@@ -57,12 +73,12 @@ const TodoContainer = ({ className }) => {
             createFolder={folderServices.createFolder}
           />
         }
-      </div>
+      </TodoFormContainer>
       <ListContainer>
         {isLoading && <LoadingSpinner/>}
         {isFolderSelected ?
           <TodoList 
-            todos={filteredTodos}
+            todos={currentFolderTodos}
             todoServices={todoServices}
           /> :
           <FolderSelector
@@ -79,4 +95,9 @@ export default styled(TodoContainer)`
   grid-row: 2;
   grid-column: 3;
   margin: 0 auto;
+  margin-top: var(--size-7);
+  border: 3px solid var(--clr-orange-3);
+  background-color: var(--clr-gray-1);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: fit-content;
 `;

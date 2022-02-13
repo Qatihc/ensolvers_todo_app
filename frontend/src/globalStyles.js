@@ -6,8 +6,13 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     list-style: none;
+    font-family: 'Poppins', sans-serif;
   }
 
+  a {
+    cursor: pointer;
+  }
+  
   :root {
     --clr-gray-10: #1d1d1d;
     --clr-gray-9: #2b2b2b;
@@ -18,20 +23,15 @@ const GlobalStyle = createGlobalStyle`
     --clr-gray-4: #bdbdbd;
     --clr-gray-3: #e0e0e0;
     --clr-gray-2: #eeeeee;
-    --clr-gray-1: #f5f5f5;
+    --clr-gray-1: #fff7eb;
     
-    --clr-accent-12:#041835;
-    --clr-accent-11:#072757;
-    --clr-accent-10:#0a377a;
-    --clr-accent-9:#0d47a1;
-    --clr-accent-8:#1565c0;
-    --clr-accent-7:#1976d2;
-    --clr-accent-6:#1e88e5;
-    --clr-accent-5:#2196f3;
-    --clr-accent-4:#42a5f5;
-    --clr-accent-3:#64b5f6;
-    --clr-accent-2:#90caf9;
-    --clr-accent-1:#E8F2FD;
+    --clr-green-3: #067061;
+    --clr-green-2: #00947e;
+    --clr-green-1: #00cdb2;
+
+    --clr-orange-3: #995500;
+    --clr-orange-2: #f09e3a;
+    --clr-orange-1: #ffbc57;
 
     --clr-error: #f025369c;
 
