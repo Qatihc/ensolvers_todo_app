@@ -6,6 +6,10 @@ interface Todo {
   folderId: string,
 }
 
+// En la mayoria de los servicios que modifican o eliminan todos falta comprobar si el todo
+// que estamos modificando pertenece o no al usuario, y si no lo hiciera devolver un error.
+// Asi como esta implementado ahora un usuario puede modificar los todos de otro usuario sin problema.
+
 class TodoServices {
   Todo: TodoRepository;
   constructor(TodoRepository: TodoRepository) {
@@ -19,7 +23,6 @@ class TodoServices {
 
   toggleDoneById = async (ids: { todoId: string, userId: string }) => {
     const { todoId, userId } = ids;
-    /* Check if todo belongs to userId */
     await this.Todo.toggleDoneById(todoId);
   }
 
@@ -29,7 +32,6 @@ class TodoServices {
   }
 
   getTodosByFolderId = async ({ folderId, userId }:{ folderId: string, userId: string }) => {
-    /* CHEQUEAR SI LA CARPETEA ES DEL USUARIO */
     const response = await this.Todo.getTodosByFolder(folderId);
     return response;
   }
@@ -39,7 +41,6 @@ class TodoServices {
   }
 
   updateTodoContentById = async ({ todoId, userId, content }:{ todoId: string, userId: string, content: string }) => {
-    /* Chequear si el todo pertenece al usuario */
     await this.Todo.updateTodoContentById({ id: todoId, content });
   }
 }

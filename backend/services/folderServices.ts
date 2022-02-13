@@ -17,7 +17,6 @@ class FolderServices {
   }
 
   deleteFolderById = async ({ id, userId }:{ id: string, userId: string})=> {
-    /* CHEQUEAR SI LA CARPETA QEU QUIERE BORRAR ES DEL USUARIO!!! */
     await this.Folder.deleteFolderById(id);
   }
 }

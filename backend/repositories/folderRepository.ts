@@ -4,7 +4,7 @@ class FolderRepository {
   getAllUserFolders = async (userId: string) => {
     const response = await Folder.findAll({
       where: { userId },
-      
+      order: [['createdAt', 'DESC']],
       raw: true
     })
     return response;
