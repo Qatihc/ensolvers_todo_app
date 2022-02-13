@@ -1,6 +1,8 @@
 # Ensolvers todo app
 ### App creada para el desafio de ensolvers.
 
+### Usuario de pruebas: testUser : 123456
+
 ##### Frontend desarrollado con react y styled componentes.
 
 ##### Backend desarrollado con nodejs, express y sequelize con postgresql como base de datos.
