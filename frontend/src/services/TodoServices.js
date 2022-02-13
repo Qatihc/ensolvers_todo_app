@@ -29,7 +29,7 @@ export default class TodoServices {
     const tempId = uuidv4();
     todo.id = tempId;
     todo.isDone = false;
-    this.updateLocalTodos([...this.todos, todo]);
+    this.updateLocalTodos([todo, ...this.todos]);
     const { data } = await axios.post('/todo', todo);
     todo.id = data.id;
     this.replaceLocalTodoById(tempId, todo);

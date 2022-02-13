@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TodoContainer from "../../components/TodoContainer/TodoContainer";
 
@@ -17,8 +17,9 @@ const PageHeader = styled.header`
 `
 
 const TodoPage = ({ currentUserToken, logout }) => {
+  const navigate = useNavigate();
   // Si el usuario no esta logueado lo redirijo a login.
-  if (!currentUserToken) return (<Navigate to="/login" />)
+  if (!currentUserToken) navigate("/login");
 
   return (
     <PageLayout>

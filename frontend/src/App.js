@@ -30,13 +30,16 @@ const App = () => {
               <RegisterForm register={userServices.register}/>
             }/>
           </Route>
-          <Route path="/todo" element={
-            <TodoPage logout={userServices.logout} currentUserToken={currentUserToken}/>
-          } />
+
+          {/* React router v6 elimino soporte para parametros opcionales, por lo que tengo que declararlos de esta forma */}
+          <Route path="/folder">
+            <Route path=":folderId" element={<TodoPage logout={userServices.logout} currentUserToken={currentUserToken}/>} />
+            <Route path="" element={<TodoPage logout={userServices.logout} currentUserToken={currentUserToken}/>} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
-    );
+  );
 }
 
 export default App;

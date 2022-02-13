@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
 const PageLayout = styled.div`
@@ -15,8 +15,10 @@ const FormContainer = styled.div`
 `
 
 const LandingPage = ({ currentUserToken }) => {
+  const navigate = useNavigate();
   // Si el usuario ya esta logueado lo redirijo a todo.
-  if (currentUserToken) return (<Navigate to="/todo" />)
+  if (currentUserToken) navigate("/folder");
+
   return (
     <PageLayout>
       <FormContainer>

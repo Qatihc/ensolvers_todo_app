@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import TodoItem from '../TodoItem/TodoItem';
 
-const TodoList = ({ todos, deleteTodoById, updateTodoContentById, toggleTodoById, className }) => {
+const TodoList = ({ todos, todoServices, className }) => {
+  const { deleteTodoById, updateTodoContentById, toggleTodoById } = todoServices;
   return (
     <main>
       <ul className={className}>

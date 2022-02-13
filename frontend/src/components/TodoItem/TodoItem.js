@@ -7,6 +7,7 @@ const TodoContainer = styled.div`
   padding: 0 2rem;
   font-size: var(--size-4);
   justify-content: space-between;
+  align-items: center;
 `
 
 const TodoActions = styled.div`
@@ -16,6 +17,9 @@ const TodoActions = styled.div`
 `
 
 const TodoText = styled.div`
+  max-width: 70%;
+  word-break: break-all;
+  cursor: pointer;
   ${({ isDone }) => isDone ? 'color: gray' : ''}
 `
 
@@ -37,7 +41,10 @@ const TodoItem = ({ todo, deleteTodoById, toggleTodoById, startContentUpdateById
   return (
     <li>
       <TodoContainer>
-        <TodoText onClick={handleToggle} isDone={isDone}>{content}</TodoText>
+        <TodoText onClick={handleToggle} isDone={isDone}>
+          <input type='checkbox' checked={isDone} readOnly/>
+          {content}
+        </TodoText>
         <TodoActions>
           <BsTrashFill onClick={handleDelete}/>
           <BsPencilSquare onClick={handleStartContentUpdate}/>

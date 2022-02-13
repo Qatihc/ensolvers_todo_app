@@ -1,32 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import TodoServices from '../../services/TodoServices';
-import AddTodoForm from '../CreateTodoForm/CreateTodoForm';
+import FolderServices from '../../services/FolderServices';
 import TodoList from '../TodoList/TodoList';
 import styled from "styled-components";
+import { useNavigate, useParams } from 'react-router-dom';
+import FolderSelector from '../FolderSelector/FolderSelector';
+import CreateFolderForm from '../CreateFolderForm/CreateFolderForm';
+import CreateTodoForm from '../CreateTodoForm/CreateTodoForm';
 
 const TodoContainer = ({ className }) => {
   const [todos, setTodos] = useState([]);
+  const [folders, setFolders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { folderId } = useParams();
 
+  const folderServices = new FolderServices(folders, setFolders);
   const todoServices = new TodoServices(todos, setTodos);
 
+  // Dado que por lo general un usuario no va a tener una gran cantidad de ToDos,
+  // para simplificar la logica de data fetching, hago GET de todos los ToDos y luego
+  // desde el cliente los filtro segun su categoria.
   useEffect(async () => {
     setIsLoading(true);
-    await todoServices.fetchAllTodos();
+    const fetchTodos = todoServices.fetchAllTodos();
+    const fetchFolders = folderServices.fetchAllFolders();
+    await Promise.all([fetchTodos, fetchFolders]);
     setIsLoading(false);
   }, []);
 
+  const navigateToFolderSelector = () => {
+    navigate('/folder');
+  }
+
+  const isFolderSelected = !!folderId;
+  const currentFolderName = folders.find((folder) => folder.id === folderId)?.name;
+  const filteredTodos = todos.filter((todo) => todo.folderId === folderId);
+  
   return (
     <div className={className}>
-      <h1>Mis Todos</h1>
-      {isLoading && 'PLACEHOLDER PARA SPINNER'}
-      <AddTodoForm createTodo={todoServices.createTodo}/>
-      <TodoList 
-        todos={todos} 
-        updateTodoContentById={todoServices.updateTodoContentById} 
-        deleteTodoById={todoServices.deleteTodoById} 
-        toggleTodoById={todoServices.toggleTodoById}
-      />
+      <nav>
+        <h1>
+          <a onClick={navigateToFolderSelector}>Folders</a>
+          {isFolderSelected && <span>{' > ' + currentFolderName}</span>}
+        </h1>
+      </nav>
+      <div>
+        {isFolderSelected ? 
+          <CreateTodoForm 
+            createTodo={todoServices.createTodo}
+            folderId={folderId}
+          /> :
+          <CreateFolderForm 
+            createFolder={folderServices.createFolder}
+          />
+        }
+      </div>
+      <main>
+        {isLoading && 'PLACEHOLDER PARA SPINNER'}
+        {isFolderSelected ? 
+          <TodoList 
+            todos={filteredTodos}
+            todoServices={todoServices}
+          /> :
+          <FolderSelector
+            folders={folders}
+          />
+        }
+      </main>
     </div>
   )
 }

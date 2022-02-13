@@ -9,17 +9,17 @@ const createTodoFormValidator = {
   }
 }
 
-const CreateTodoForm = ({ createTodo }) => {
+const CreateTodoForm = ({ createTodo, folderId }) => {
   const handleSubmit = (values, resetForm) => {
-    values.content = values.content.trim();
-    createTodo(values)
+    const content = values.content.trim();
+    createTodo({ content, folderId })
     resetForm();
   }
 
   return (
     <Form onSubmit={handleSubmit} formValidator={createTodoFormValidator}>
-      <Input name="content" label="Contenido"></Input>
-      <SubmitButton>Crear!</SubmitButton>
+      <Input name="content" label="content"></Input>
+      <SubmitButton>Crear todo</SubmitButton>
     </Form>
   )
 }
