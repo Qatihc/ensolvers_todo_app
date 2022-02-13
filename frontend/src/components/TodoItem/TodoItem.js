@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BsTrashFill, BsPencilSquare } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
-const TodoContainer = styled.div`
+const TodoItemContainer = styled.div`
   display: flex;
+  flex-direction: column;
   font-size: var(--size-4);
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: var(--size-4);
+  @media (min-width: 600px) {
+    flex-direction: row;
+    align-items: center;
+  }
 `
 
 const TodoActions = styled.div`
   display: flex;
   gap: 2rem;
+  margin: 0 var(--size-6);
+
+  @media (min-width: 600px) {
+    margin: 0;
+  }
 
   & button {
     background: none;
@@ -26,9 +38,15 @@ const TodoActions = styled.div`
 `
 
 const TodoText = styled.div`
-  max-width: 70%;
+  display: flex;
+  max-width: 100%;
   word-break: break-all;
   margin-top: var(--size-2);
+
+  @media (min-width: 600px) {
+    max-width: 70%;
+  }
+
   input {
     display: inline-block;
     cursor: pointer;
@@ -42,8 +60,9 @@ const TodoText = styled.div`
   }
 `
 
-const TodoItem = ({ todo, deleteTodoById, toggleTodoById, startContentUpdateById }) => {
+const TodoItem = ({ todo, deleteTodoById, selectTodoToUpdate, toggleTodoById }) => {
   const { id, content, isDone } = todo;
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     await deleteTodoById({ id });
@@ -53,13 +72,13 @@ const TodoItem = ({ todo, deleteTodoById, toggleTodoById, startContentUpdateById
     await toggleTodoById({ id });
   }
 
-  const handleStartContentUpdate = async () => {
-    startContentUpdateById(id);
+  const handleEdit = async () => {
+    selectTodoToUpdate({ id });
   }
 
   return (
     <li>
-      <TodoContainer>
+      <TodoItemContainer>
         <TodoText isDone={isDone}>
           <input type='checkbox' checked={isDone} onChange={handleToggle}/>
           <p onClick={handleToggle}>{content}</p>
@@ -68,11 +87,11 @@ const TodoItem = ({ todo, deleteTodoById, toggleTodoById, startContentUpdateById
           <button onClick={handleDelete}>
             <BsTrashFill/>
           </button>
-          <button onClick={handleStartContentUpdate}>
+          <button onClick={handleEdit}>
             <BsPencilSquare />
           </button>
         </TodoActions>
-      </TodoContainer>
+      </TodoItemContainer>
     </li>
   )
 }

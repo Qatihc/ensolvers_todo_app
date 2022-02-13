@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import CreateFolderForm from '../CreateFolderForm/CreateFolderForm';
+import { TodoFormContainer } from '../TodoContainer/StyledComponents';
 
 const FolderLink = styled.a`
   font-size: var(--size-5);
 `
 
+const FolderSelector = ({ folders, folderServices, className }) => {
+  const { createFolder, deleteFolderById } = folderServices;
 
-const FolderSelector = ({ folders, deleteFolderById, className }) => {
   const navigate = useNavigate();
   const navigateToFolder = (id) => {
     navigate(`${id}`);
   }
 
   return (
-    <>
+    <main>
+      <TodoFormContainer>
+        <CreateFolderForm 
+          createFolder={createFolder}
+        />
+      </TodoFormContainer>
       <ul className={className}>
         {folders.map((folder) => 
           <li key={folder.id}>
@@ -23,7 +31,7 @@ const FolderSelector = ({ folders, deleteFolderById, className }) => {
           </li>
         )}
       </ul>
-    </>
+    </main>
   )
 }
 

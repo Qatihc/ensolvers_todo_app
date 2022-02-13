@@ -1,29 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import TodoServices from '../../services/TodoServices';
 import FolderServices from '../../services/FolderServices';
 import TodoList from '../TodoList/TodoList';
+import FolderSelector from '../FolderSelector/FolderSelector';
+import { LoadingSpinner } from '../../LoadingSpinner';
+import { CurrentFolderNav, ListContainer, TodoFormContainer } from './StyledComponents';
 import styled from "styled-components";
 import { useNavigate, useParams } from 'react-router-dom';
-import FolderSelector from '../FolderSelector/FolderSelector';
-import CreateFolderForm from '../CreateFolderForm/CreateFolderForm';
-import CreateTodoForm from '../CreateTodoForm/CreateTodoForm';
-import { LoadingSpinner } from '../../LoadingSpinner';
-
-const ListContainer = styled.main`
-  position: relative;
-  padding: var(--size-6);
-  height: 70vh;
-  width: min(90vw, var(--size-17));
-  overflow-y: auto;
-`
-
-const TodoFormContainer = styled.div`
-  padding: 0 var(--size-6);
-`
-
-const CurrentFolderNav = styled.nav`
-  padding: var(--size-6);
-`
 
 const TodoContainer = ({ className }) => {
   const [todos, setTodos] = useState([]);
@@ -31,7 +14,7 @@ const TodoContainer = ({ className }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { folderId } = useParams();
+  const { folderId: currentFolderId } = useParams();
 
   const folderServices = new FolderServices(folders, setFolders);
   const todoServices = new TodoServices(todos, setTodos);
@@ -46,15 +29,28 @@ const TodoContainer = ({ className }) => {
     await Promise.all([fetchTodos, fetchFolders]);
     setIsLoading(false);
   }, []);
+  
+  const isFolderSelected = !!currentFolderId;
+
+  const currentFolderName = folders.find((folder) => folder.id === currentFolderId)?.name;
+  const currentFolderTodos = todos.filter((todo) => todo.folderId === currentFolderId);
+
+  let currentList = (isFolderSelected ? 
+    <TodoList 
+      todos={currentFolderTodos}
+      currentFolderId={currentFolderId}
+      todoServices={todoServices}
+    /> :
+    <FolderSelector
+      folders={folders}
+      folderServices={folderServices}
+    />
+  )
 
   const navigateToFolderIndex = () => {
     navigate('/folder');
   }
 
-  const isFolderSelected = !!folderId;
-  const currentFolderName = folders.find((folder) => folder.id === folderId)?.name;
-  const currentFolderTodos = todos.filter((todo) => todo.folderId === folderId);
-  
   return (
     <div className={className}>
       <CurrentFolderNav>
@@ -63,29 +59,8 @@ const TodoContainer = ({ className }) => {
           {isFolderSelected && <span>{' > ' + currentFolderName}</span>}
         </h1>
       </CurrentFolderNav>
-      <TodoFormContainer>
-        {isFolderSelected ? 
-          <CreateTodoForm 
-            createTodo={todoServices.createTodo}
-            folderId={folderId}
-          /> :
-          <CreateFolderForm 
-            createFolder={folderServices.createFolder}
-          />
-        }
-      </TodoFormContainer>
       <ListContainer>
-        {isLoading && <LoadingSpinner/>}
-        {isFolderSelected ?
-          <TodoList 
-            todos={currentFolderTodos}
-            todoServices={todoServices}
-          /> :
-          <FolderSelector
-            folders={folders}
-            deleteFolderById={folderServices.deleteFolderById}
-          />
-        }
+        {isLoading ? <LoadingSpinner/> : currentList}
       </ListContainer>
     </div>
   )

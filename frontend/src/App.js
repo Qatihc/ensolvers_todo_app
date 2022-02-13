@@ -12,6 +12,7 @@ const App = () => {
   const [currentUserToken, setCurrentUserToken] = useState(PersistToken.getPersistedToken());
   const userServices = new UserServices(setCurrentUserToken);
 
+  const todoPage = <TodoPage logout={userServices.logout} currentUserToken={currentUserToken}/>;
   return (
     <>
       <GlobalStyle />
@@ -33,8 +34,8 @@ const App = () => {
 
           {/* React router v6 elimino soporte para parametros opcionales, por lo que tengo que declararlos de esta forma */}
           <Route path="/folder">
-            <Route path=":folderId" element={<TodoPage logout={userServices.logout} currentUserToken={currentUserToken}/>} />
-            <Route path="" element={<TodoPage logout={userServices.logout} currentUserToken={currentUserToken}/>} />
+            <Route path=":folderId" element={todoPage} />
+            <Route path="" element={todoPage} />
           </Route>
         </Routes>
       </BrowserRouter>

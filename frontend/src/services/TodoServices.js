@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default class TodoServices {
   constructor(todos, setTodos) {
-    console.log('creado')
     this.setTodos = setTodos;
     this.todos = Object.freeze(todos);
   }
@@ -42,6 +41,7 @@ export default class TodoServices {
   }
 
   updateTodoContentById = async ({ id, newContent }) => {
+    console.log(id, newContent)
     const todoToUpdate = this.todos.find((todo) => todo.id === id);
     todoToUpdate.content = newContent;
     this.replaceLocalTodoById(id, todoToUpdate);

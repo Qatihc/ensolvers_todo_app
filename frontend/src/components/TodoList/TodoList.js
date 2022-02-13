@@ -1,42 +1,51 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import CreateTodoForm from '../CreateTodoForm/CreateTodoForm';
 import EditTodoForm from '../EditTodoForm/EditTodoForm';
+import { TodoFormContainer } from '../TodoContainer/StyledComponents';
 import TodoItem from '../TodoItem/TodoItem';
 
-const TodoList = ({ todos, todoServices, className }) => {
-  const { deleteTodoById, updateTodoContentById, toggleTodoById } = todoServices;
-  const [editingTodoId, setEditingTodoId] = useState(null);
+const TodoList = ({ todos, currentFolderId, todoServices }) => {
+  const [editedTodoId, setEditedTodoId] = useState(null);
+  const { deleteTodoById, toggleTodoById, updateTodoContentById } = todoServices;
 
-  const startContentUpdateById = (id) => {
-    setEditingTodoId(id)
+  const cancelTodoUpdate = () => {
+    setEditedTodoId(null);
   }
 
-  const cancelContentUpdate = () => {
-    setEditingTodoId(null);
+  const confirmTodoUpdate = ({ content }) => {
+    updateTodoContentById({ id: editedTodoId, newContent: content});
+    setEditedTodoId(null);
   }
 
-  const confirmContentUpdate = async (newContent) => {
-    todoServices.updateTodoContentById({ id: editingTodoId, newContent });
-    setEditingTodoId(null);
+  const selectTodoToUpdate = ({ id }) => {
+    setEditedTodoId(id);
   }
 
-  const todoToEdit = todos.find((todo) => todo.id === editingTodoId);
   return (
     <main>
-      {editingTodoId ? 
+      <TodoFormContainer>
+        {editedTodoId ?
         <EditTodoForm 
-          todo={todoToEdit} 
-          cancel={cancelContentUpdate} 
-          confirm={confirmContentUpdate} 
+          todo={todos.find((todo) => todo.id === editedTodoId)}
+          confirmTodoUpdate={confirmTodoUpdate}
+          cancelTodoUpdate={cancelTodoUpdate}
         /> :
-        <ul className={className}>
+        <CreateTodoForm 
+          folderId={currentFolderId}
+          createTodo={todoServices.createTodo}
+        /> 
+        }
+      </TodoFormContainer>
+      {!editedTodoId &&
+        <ul>
           {todos.map((todo) => {
             return (
               <TodoItem 
                 key={todo.id}
                 todo={todo}
                 deleteTodoById={deleteTodoById}
-                startContentUpdateById={startContentUpdateById}
+                selectTodoToUpdate={selectTodoToUpdate}
                 toggleTodoById={toggleTodoById}
               />
             )
@@ -47,6 +56,4 @@ const TodoList = ({ todos, todoServices, className }) => {
   )
 }
 
-export default styled(TodoList)`
-
-`;
+export default TodoList;
