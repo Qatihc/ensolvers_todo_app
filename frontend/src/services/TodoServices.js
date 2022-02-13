@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default class TodoServices {
   constructor(todos, setTodos) {
+    console.log('creado')
     this.setTodos = setTodos;
     this.todos = Object.freeze(todos);
   }

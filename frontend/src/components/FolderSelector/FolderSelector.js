@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import CreateFolderForm from '../CreateFolderForm/CreateFolderForm';
 
-const FolderSelector = ({ folders, folderServices }) => {
+const FolderSelector = ({ folders, deleteFolderById }) => {
   const navigate = useNavigate();
   const navigateToFolder = (id) => {
     navigate(`${id}`);
@@ -13,7 +12,10 @@ const FolderSelector = ({ folders, folderServices }) => {
     <>
       <ul>
         {folders.map((folder) => 
-          <li onClick={() => navigateToFolder(folder.id)} key={folder.id}>{folder.name}</li>
+          <li key={folder.id}>
+            <a onClick={() => navigateToFolder(folder.id)}>{folder.name}</a>
+            <button onClick={() => deleteFolderById({ id: folder.id })}> Delete </button>
+          </li>
         )}
       </ul>
     </>

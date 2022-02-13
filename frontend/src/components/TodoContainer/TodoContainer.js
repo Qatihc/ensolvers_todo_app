@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import TodoServices from '../../services/TodoServices';
 import FolderServices from '../../services/FolderServices';
 import TodoList from '../TodoList/TodoList';
@@ -65,6 +65,7 @@ const TodoContainer = ({ className }) => {
           /> :
           <FolderSelector
             folders={folders}
+            deleteFolderById={folderServices.deleteFolderById}
           />
         }
       </main>
