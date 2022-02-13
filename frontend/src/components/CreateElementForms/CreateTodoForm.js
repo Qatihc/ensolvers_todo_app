@@ -1,13 +1,5 @@
 import React from 'react';
-import Form from '../ControlledForm/Form';
-import Input from '../ControlledForm/Input';
-import SubmitButton from '../ControlledForm/SubmitButton';
-import styled from 'styled-components';
-
-const StyledForm = styled(Form)`
-  display: flex;
-  flex-direction: row;
-`
+import { StyledForm, StyledSubmitButton, StyledInput } from './StyledComponents';
 
 const createTodoFormValidator = {
   content: ({ content }) => {
@@ -24,8 +16,8 @@ const CreateTodoForm = ({ createTodo, folderId }) => {
 
   return (
     <StyledForm onSubmit={handleSubmit} formValidator={createTodoFormValidator}>
-      <Input name="content" label="content"></Input>
-      <SubmitButton>Crear todo</SubmitButton>
+      <StyledInput name="content" label="Contenido del todo"></StyledInput>
+      <StyledSubmitButton>Crear todo</StyledSubmitButton>
     </StyledForm>
   )
 }

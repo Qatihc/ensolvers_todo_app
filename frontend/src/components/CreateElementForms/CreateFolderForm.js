@@ -1,13 +1,5 @@
 import React from 'react';
-import Form from '../ControlledForm/Form';
-import Input from '../ControlledForm/Input';
-import SubmitButton from '../ControlledForm/SubmitButton';
-import styled from 'styled-components';
-
-const StyledForm = styled(Form)`
-  display: flex;
-  flex-direction: row;
-`
+import { StyledForm, StyledSubmitButton, StyledInput } from './StyledComponents';
 
 const createFolderFormValidator = {
   name: ({ name }) => {
@@ -24,8 +16,8 @@ const CreateFolderForm = ({ createFolder }) => {
 
   return (
     <StyledForm onSubmit={handleSubmit} formValidator={createFolderFormValidator}>
-      <Input name="name" label="Nombre de la carpeta"></Input>
-      <SubmitButton>Crear carpeta</SubmitButton>
+      <StyledInput name="name" label="Nombre de la carpeta"></StyledInput>
+      <StyledSubmitButton>Crear carpeta</StyledSubmitButton>
     </StyledForm>
   )
 }

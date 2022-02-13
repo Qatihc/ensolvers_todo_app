@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import CreateTodoForm from '../CreateTodoForm/CreateTodoForm';
+import CreateTodoForm from '../CreateElementForms/CreateTodoForm';
 import EditTodoForm from '../EditTodoForm/EditTodoForm';
-import { TodoFormContainer } from '../TodoContainer/StyledComponents';
+import { TodoFormContainer } from '../TodoAppContainer/StyledComponents';
 import TodoItem from '../TodoItem/TodoItem';
 
 const TodoList = ({ todos, currentFolderId, todoServices }) => {

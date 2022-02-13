@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { BsTrashFill, BsPencilSquare } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +30,6 @@ const TodoActions = styled.div`
     border: none;
     cursor: pointer;
   }
-
   & svg {
     ${({ isDone }) => isDone ? 'color: var(--clr-gray-4);' : 'color: var(--clr-gray-7);'}
     font-size: 1.5rem;
@@ -42,7 +41,6 @@ const TodoText = styled.div`
   max-width: 100%;
   word-break: break-all;
   margin-top: var(--size-2);
-
   @media (min-width: 600px) {
     max-width: 70%;
   }
@@ -56,13 +54,13 @@ const TodoText = styled.div`
     margin-left: 1rem;
     display: inline-block;
     cursor: pointer;
+    transition: color .2s ease-in-out;
    ${({ isDone }) => isDone ? 'color: var(--clr-gray-5)' : ''}
   }
 `
 
 const TodoItem = ({ todo, deleteTodoById, selectTodoToUpdate, toggleTodoById }) => {
   const { id, content, isDone } = todo;
-  const navigate = useNavigate();
 
   const handleDelete = async () => {
     await deleteTodoById({ id });

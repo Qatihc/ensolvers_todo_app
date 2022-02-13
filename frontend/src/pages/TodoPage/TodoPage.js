@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TodoContainer from "../../components/TodoContainer/TodoContainer";
+import TodoAppContainer from "../../components/TodoAppContainer/TodoAppContainer";
 
 const PageLayout = styled.div`
   display: grid;
@@ -37,7 +37,7 @@ const TodoPage = ({ currentUserToken, logout }) => {
         <h2>To do App</h2>
         <button onClick={handleLogout}>Log out</button>
       </PageHeader>
-      <TodoContainer />
+      <TodoAppContainer />
     </PageLayout>
   )
 }

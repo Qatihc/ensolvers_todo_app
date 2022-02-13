@@ -8,7 +8,7 @@
 
 ##### Frontend desarrollado con react y styled componentes.
 
-##### Backend desarrollado con nodejs, express y sequelize con postgresql como base de datos.
+##### Backend desarrollado con nodejs, express y sequelize ORM con postgresql como base de datos.
 
 ---
 

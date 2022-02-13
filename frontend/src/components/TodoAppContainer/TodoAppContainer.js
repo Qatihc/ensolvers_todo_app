@@ -8,7 +8,7 @@ import { CurrentFolderNav, ListContainer, TodoFormContainer } from './StyledComp
 import styled from "styled-components";
 import { useNavigate, useParams } from 'react-router-dom';
 
-const TodoContainer = ({ className }) => {
+const TodoAppContainer = ({ className }) => {
   const [todos, setTodos] = useState([]);
   const [folders, setFolders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -66,7 +66,7 @@ const TodoContainer = ({ className }) => {
   )
 }
 
-export default styled(TodoContainer)`
+export default styled(TodoAppContainer)`
   grid-row: 2;
   grid-column: 3;
   margin: 0 auto;
